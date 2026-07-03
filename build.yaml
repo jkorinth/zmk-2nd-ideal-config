@@ -4,8 +4,8 @@ include:
 
   - board: xiao_ble
     shield: 2nd_ideal_left
-    snippet: ["debug", "zmk-usb-logging"]
-    cmake-args: -DSNIPPET_ROOT=.
+    snippet: debug zmk-usb-logging
+    cmake-args: -DSNIPPET_ROOT=$GITHUB_WORKSPACE
     artifact-name: 2nd_ideal_left_debug
 
   - board: xiao_ble
@@ -13,8 +13,8 @@ include:
 
   - board: xiao_ble
     shield: 2nd_ideal_right
-    snippet: ["debug", "zmk-usb-logging"]
-    cmake-args: -DSNIPPET_ROOT=.
+    snippet: debug zmk-usb-logging
+    cmake-args: -DSNIPPET_ROOT=$GITHUB_WORKSPACE
     artifact-name: 2nd_ideal_right_debug
 
   - board: xiao_ble
