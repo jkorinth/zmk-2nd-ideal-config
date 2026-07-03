@@ -1,0 +1,18 @@
+manifest:
+  remotes:
+    - name: jkorinth
+      url-base: https://github.com/jkorinth
+  projects:
+    - name: zephyr
+      remote: jkorinth
+      revision: zmk
+      import: west.yml
+    - name: zmk
+      remote: jkorinth
+      revision: 2nd_ideal
+      import: app/west.yml
+    - name: zmk-keyboard-2nd-ideal
+      remote: jkorinth
+      revision: dev
+  self:
+    path: config
