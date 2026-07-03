@@ -1,7 +1,21 @@
 include:
   - board: xiao_ble
     shield: 2nd_ideal_left
+
+  - board: xiao_ble
+    shield: 2nd_ideal_left
+    snippet: ["debug", "zmk-usb-logging"]
+    cmake-args: -DSNIPPET_ROOT=.
+    artifact-name: 2nd_ideal_left_debug
+
   - board: xiao_ble
     shield: 2nd_ideal_right
+
+  - board: xiao_ble
+    shield: 2nd_ideal_right
+    snippet: ["debug", "zmk-usb-logging"]
+    cmake-args: -DSNIPPET_ROOT=.
+    artifact-name: 2nd_ideal_right_debug
+
   - board: xiao_ble
     shield: settings_reset
