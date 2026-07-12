@@ -1,0 +1,12 @@
+build/
+.ccls-cache
+.direnv
+.task
+.west
+/bootloader
+/modules
+/optional
+/tools
+/zephyr
+/zmk-keyboard-2nd-ideal
+/zmk

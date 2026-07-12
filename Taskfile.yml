@@ -1,0 +1,106 @@
+version: '3'
+
+vars:
+  DEV_PATH: /dev/disk/by-label/XIAO-SENSE
+  LEFT_UF2: build/left/zephyr/zmk.uf2
+  RIGHT_UF2: build/right/zephyr/zmk.uf2
+  RESET_UF2: build/reset/zephyr/zmk.uf2
+  WEST_ARGS: -b xiao_ble -p auto -S zmk-usb-logging -S debug zmk/app
+  CMAKE_ARGS: -DZMK_CONFIG={{.TASKFILE_DIR}}/config
+
+tasks:
+  flash:left:
+    silent: true
+    cmds:
+      - task: flash
+        vars:
+          UF2: "{{.LEFT_UF2}}"
+          SIDE: "left"
+
+  flash:right:
+    silent: true
+    cmds:
+      - task: flash
+        vars:
+          UF2: "{{.RIGHT_UF2}}"
+          SIDE: "right"
+
+  flash:reset:
+    silent: true
+    cmds:
+      - task: flash
+        vars:
+          UF2: "{{.RESET_UF2}}"
+          SIDE: "reset"
+
+  flash:
+    internal: true
+    silent: true
+    deps:
+      - task: build
+        vars:
+          SIDE: "{{.SIDE}}"
+    preconditions: 
+      - test -e {{.UF2}}
+    cmds:
+      - echo "Waiting for 'XIAO-SENSE' drive to appear..."
+      - while [ ! -e {{.DEV_PATH}} ]; do sleep 0.5; done
+      - |
+        echo "Found device! Checking mount status..."
+        MOUNT_POINT=$(udisksctl info -b {{.DEV_PATH}} | grep MountPoints | awk '{print $2}')
+        
+        if [ -z "$MOUNT_POINT" ] ; then
+          echo "Device not mounted. Mounting via udisksctl..."
+          udisksctl mount -b {{.DEV_PATH}} > /dev/null
+          sleep 0.5
+          while [ -z "$MOUNT_POINT" ]; do
+            MOUNT_POINT=$(udisksctl info -b {{.DEV_PATH}} | grep MountPoints | awk '{print $2}')
+          done
+        else
+          echo "Device is already auto-mounted."
+        fi
+
+        if [ -z "$MOUNT_POINT" ]; then
+          echo "❌ Error: Failed to acquire a valid mountpoint."
+          exit 1
+        fi
+
+        echo "Target mount location: $MOUNT_POINT"
+        echo "Flashing {{.UF2}} ..."
+        cp {{.UF2}} "$MOUNT_POINT"/
+        sync
+        echo "Done."
+
+  build:reset:
+    cmds:
+      - task: build
+        vars:
+          SIDE: reset
+
+  build:left:
+    cmds:
+      - task: build
+        vars:
+          SIDE: left
+
+  build:right:
+    cmds:
+      - task: build
+        vars:
+          SIDE: right
+
+  build:
+    internal: true
+    sources:
+      - 'zmk-keyboard-2nd-ideal/**/*'
+      - 'config/**/*'
+    generates:
+      - 'build/{{.SIDE}}/zephyr/zmk.uf2'
+    cmds:
+      - 'west build {{.WEST_ARGS}} -d build/{{.SIDE}} -- {{if ne .SIDE "reset"}}-DSHIELD=2nd_ideal_{{.SIDE}}{{else}}-DSHIELD=settings_reset -DCONFIG_NEWLIB_LIBC=y -DCONFIG_PICOLIBC=n{{end}} {{.CMAKE_ARGS}}'
+
+  clean:
+    silent: true
+    cmds:
+      - rm -rf build
+      - echo "Done."
