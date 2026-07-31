@@ -128,8 +128,33 @@ tasks:
     cmds:
       - 'west build {{.WEST_ARGS}} -d build/{{.SIDE}} -t menuconfig -- {{if ne .SIDE "reset"}}-DSHIELD=2nd_ideal_{{.SIDE}}{{else}}-DSHIELD=settings_reset -DCONFIG_NEWLIB_LIBC=y -DCONFIG_PICOLIBC=n{{end}} {{.CMAKE_ARGS}}'
 
+  clean:all:
+    cmds:
+      - task: clean:left
+      - task: clean:right
+      - task: clean:reset
+
+  clean:reset:
+    cmds:
+      - task: clean
+        vars:
+          SIDE: reset
+
+  clean:left:
+    cmds:
+      - task: clean
+        vars:
+          SIDE: left
+
+  clean:right:
+    cmds:
+      - task: clean
+        vars:
+          SIDE: right
+
   clean:
     silent: true
+    internal: true
     cmds:
-      - rm -rf build
+      - rm -rf build/{{.SIDE}}
       - echo "Done."
