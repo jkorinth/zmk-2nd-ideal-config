@@ -99,6 +99,8 @@ tasks:
     internal: true
     sources:
       - 'zmk-keyboard-2nd-ideal/**/*'
+      - 'zmk-2nd-ideal-status-led/**/*'
+      - 'zephyr/**/*'
       - 'config/**/*'
     generates:
       - 'build/{{.SIDE}}/zephyr/zmk.uf2'

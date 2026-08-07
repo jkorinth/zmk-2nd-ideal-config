@@ -14,5 +14,8 @@ manifest:
     - name: zmk-keyboard-2nd-ideal
       remote: jkorinth
       revision: dev
+    - name: zmk-2nd-ideal-status-led
+      remote: jkorinth
+      revision: dev
   self:
     path: config

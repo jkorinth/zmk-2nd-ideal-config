@@ -10,3 +10,5 @@ build/
 /zephyr
 /zmk-keyboard-2nd-ideal
 /zmk
+/zmk-2nd-ideal-status-led
+compile_commands.json
