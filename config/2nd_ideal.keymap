@@ -1,3 +1,4 @@
+#define ZMK_POINTING_DEFAULT_SCRL_VAL 		100
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
@@ -189,25 +190,17 @@
     };
 
     behaviors {
-	    rgb_hue: rgb_hue {
-		    compatible = "zmk,behavior-sensor-rotate";
-		    #sensor-binding-cells = <0>;
-		    bindings = <&rgb_ug RGB_HUI>, <&rgb_ug RGB_HUD>;
-	    };
-	    rgb_sat: rgb_sat {
-		    compatible = "zmk,behavior-sensor-rotate";
-		    #sensor-binding-cells = <0>;
-		    bindings = <&rgb_ug RGB_SAI>, <&rgb_ug RGB_SAD>;
-	    };
 	    msc_vrt: msc_vrt {
 		    compatible = "zmk,behavior-sensor-rotate";
 		    #sensor-binding-cells = <0>;
-		    bindings = <&msc SCRL_UP>, <&msc SCRL_DOWN>;
+		    bindings = <&msc SCRL_DOWN>, <&msc SCRL_UP>;
+		    tap-ms = <25>;
 	    };
 	    msc_hrz: msc_hrz {
 		    compatible = "zmk,behavior-sensor-rotate";
 		    #sensor-binding-cells = <0>;
 		    bindings = <&msc SCRL_LEFT>, <&msc SCRL_RIGHT>;
+		    tap-ms = <25>;
 	    };
     };
 
