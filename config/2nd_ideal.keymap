@@ -1,4 +1,5 @@
 #define ZMK_POINTING_DEFAULT_SCRL_VAL 		100
+
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
@@ -76,6 +77,7 @@
         combo_bktk {
             key-positions = <17 18 19>;
             bindings = <&kp GRAVE>;
+            timeout-ms = <30>;
         };
 
         // row 3
@@ -150,6 +152,7 @@
         combo_bkspc {
             key-positions = <16 17 18>;
             bindings = <&kp BSPC>;
+            timeout-ms = <30>;
         };
 
         combo_sqt {
@@ -160,11 +163,39 @@
         combo_esc {
             bindings = <&kp ESC>;
             key-positions = <11 12 13>;
+            timeout-ms = <30>;
         };
 
         combo_tab {
             bindings = <&kp TAB>;
             key-positions = <10 11 12>;
+            timeout-ms = <30>;
+        };
+
+        combo_auml {
+            bindings = <&kp DE_A_UMLAUT>;
+            key-positions = <10 2>;
+        };
+
+        combo_ouml {
+            bindings = <&kp DE_O_UMLAUT>;
+            key-positions = <8 2>;
+        };
+
+        combo_uuml {
+            bindings = <&kp DE_U_UMLAUT>;
+            key-positions = <2 6>;
+        };
+
+        combo_szlig {
+            bindings = <&kp DE_SZ>;
+            key-positions = <11 20>;
+        };
+
+        combo_capslock {
+            bindings = <&kp CLCK>;
+            key-positions = <10 11 12 13>;
+            timeout-ms = <30>;
         };
     };
 
@@ -191,18 +222,21 @@
     };
 
     behaviors {
-	    msc_vrt: msc_vrt {
-		    compatible = "zmk,behavior-sensor-rotate";
-		    #sensor-binding-cells = <0>;
-		    bindings = <&msc SCRL_DOWN>, <&msc SCRL_UP>;
-		    tap-ms = <25>;
-	    };
-	    msc_hrz: msc_hrz {
-		    compatible = "zmk,behavior-sensor-rotate";
-		    #sensor-binding-cells = <0>;
-		    bindings = <&msc SCRL_LEFT>, <&msc SCRL_RIGHT>;
-		    tap-ms = <25>;
-	    };
+        msc_vrt: msc_vrt {
+            compatible = "zmk,behavior-sensor-rotate";
+            #sensor-binding-cells = <0>;
+            bindings = <&msc SCRL_DOWN>, <&msc SCRL_UP>;
+
+            tap-ms = <25>;
+        };
+
+        msc_hrz: msc_hrz {
+            compatible = "zmk,behavior-sensor-rotate";
+            #sensor-binding-cells = <0>;
+            bindings = <&msc SCRL_LEFT>, <&msc SCRL_RIGHT>;
+
+            tap-ms = <25>;
+        };
     };
 
     keymap {
@@ -251,6 +285,7 @@
             >;
 
             //sensor-bindings = <&rgb_hue &rgb_sat>;
+
             sensor-bindings = <&inc_dec_kp N9 N0>, <&inc_dec_kp X Y>;
         };
     };
