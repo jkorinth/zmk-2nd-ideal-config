@@ -111,6 +111,7 @@ tasks:
     sources:
       - 'zmk-keyboard-2nd-ideal/**/*'
       - 'zmk-2nd-ideal-status-led/**/*'
+      - 'zmk-tincan/**/*'
       - 'zephyr/**/*'
       - 'config/**/*'
       - 'Taskfile.yml'

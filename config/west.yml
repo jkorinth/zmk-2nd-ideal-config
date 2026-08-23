@@ -17,5 +17,8 @@ manifest:
     - name: zmk-2nd-ideal-status-led
       remote: jkorinth
       revision: dev
+    - name: zmk-tincan
+      remote: jkorinth
+      revision: dev
   self:
     path: config
