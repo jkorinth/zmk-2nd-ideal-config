@@ -5,8 +5,17 @@ vars:
   LEFT_UF2: build/left/zephyr/zmk.uf2
   RIGHT_UF2: build/right/zephyr/zmk.uf2
   RESET_UF2: build/reset/zephyr/zmk.uf2
-  WEST_ARGS: -b xiao_ble -p auto -S zmk-usb-logging -S debug zmk/app
-  CMAKE_ARGS: -DZMK_CONFIG={{.TASKFILE_DIR}}/config -DCONFIG_NVS=y -DCONFIG_SETTINGS_NVS=y -DCONFIG_FLASH=y -DCONFIG_FLASH_MAP=y
+  MODE: '{{default "release" .MODE}}'
+  WEST_ARGS: >-
+    -b xiao_ble
+    -p auto
+    {{if ne .MODE "release"}} -S zmk-usb-logging -S debug{{end}}
+    zmk/app
+  CMAKE_ARGS: -DZMK_CONFIG={{.TASKFILE_DIR}}/config -DCONFIG_NVS=y -DCONFIG_SETTINGS_NVS=y -DCONFIG_FLASH=y -DCONFIG_FLASH_MAP=y {{.SHIELD_ARGS}}
+  RESET_SHIELD: >-
+    -DSHIELD=settings_reset
+    -DCONFIG_NEWLIB_LIBC=y
+    -DCONFIG_PICOLIBC=n
 
 tasks:
   flash:left:
@@ -97,15 +106,18 @@ tasks:
 
   build:
     internal: true
+    vars:
+      SHIELD_ARGS: '{{if ne .SIDE "reset"}}-DSHIELD=2nd_ideal_{{.SIDE}}{{else}}{{.RESET_SHIELD}}{{end}}'
     sources:
       - 'zmk-keyboard-2nd-ideal/**/*'
       - 'zmk-2nd-ideal-status-led/**/*'
       - 'zephyr/**/*'
       - 'config/**/*'
+      - 'Taskfile.yml'
     generates:
       - 'build/{{.SIDE}}/zephyr/zmk.uf2'
     cmds:
-      - 'west build {{.WEST_ARGS}} -d build/{{.SIDE}} -- {{if ne .SIDE "reset"}}-DSHIELD=2nd_ideal_{{.SIDE}}{{else}}-DSHIELD=settings_reset -DCONFIG_NEWLIB_LIBC=y -DCONFIG_PICOLIBC=n{{end}} {{.CMAKE_ARGS}}'
+      - 'west build -d build/{{.SIDE}} {{.WEST_ARGS}} -- {{.SHIELD_ARGS}} {{.CMAKE_ARGS}}'
   
   menuconfig:reset:
     cmds:
@@ -127,8 +139,10 @@ tasks:
 
   menuconfig:
     internal: true
+    vars:
+      SHIELD_ARGS: '{{if ne .SIDE "reset"}}-DSHIELD=2nd_ideal_{{.SIDE}}{{else}}{{.RESET_SHIELD}}{{end}}'
     cmds:
-      - 'west build {{.WEST_ARGS}} -d build/{{.SIDE}} -t menuconfig -- {{if ne .SIDE "reset"}}-DSHIELD=2nd_ideal_{{.SIDE}}{{else}}-DSHIELD=settings_reset -DCONFIG_NEWLIB_LIBC=y -DCONFIG_PICOLIBC=n{{end}} {{.CMAKE_ARGS}}'
+      - 'west build -d build/{{.SIDE}} -t menuconfig {{.WEST_ARGS}} -- {{.SHIELD_ARGS}} {{.CMAKE_ARGS}}'
 
   clean:all:
     cmds:
