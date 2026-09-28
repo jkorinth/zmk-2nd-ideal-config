@@ -11,41 +11,47 @@
 / {
     combos {
         compatible = "zmk,combos";
-        timeout-ms = <15>;
 
         combo_tilde {
             key-positions = <1 0>;
             bindings = <&kp TILDE>;
+            timeout-ms = <20>;
         };
 
         combo_lparen {
             key-positions = <3 2>;
             bindings = <&kp LPAR>;
+            timeout-ms = <20>;
         };
 
         combo_div {
             key-positions = <3 4>;
             bindings = <&kp FSLH>;
+            timeout-ms = <20>;
         };
 
         combo_mul {
             key-positions = <6 5>;
             bindings = <&kp ASTERISK>;
+            timeout-ms = <20>;
         };
 
         combo_rparen {
             key-positions = <7 6>;
             bindings = <&kp RPAR>;
+            timeout-ms = <20>;
         };
 
         combo_eq {
             key-positions = <8 7>;
             bindings = <&kp EQUAL>;
+            timeout-ms = <20>;
         };
 
         combo_bslh {
             key-positions = <30 31>;
             bindings = <&kp BSLH>;
+            timeout-ms = <20>;
         };
 
         // row 2
@@ -53,26 +59,31 @@
         combo_lbrace {
             key-positions = <12 13>;
             bindings = <&kp LBRC>;
+            timeout-ms = <20>;
         };
 
         combo_minus {
             key-positions = <14 13>;
             bindings = <&kp MINUS>;
+            timeout-ms = <20>;
         };
 
         combo_plus {
             key-positions = <15 16>;
             bindings = <&kp PLUS>;
+            timeout-ms = <20>;
         };
 
         combo_rbrace {
             key-positions = <16 17>;
             bindings = <&kp RBRC>;
+            timeout-ms = <20>;
         };
 
         combo_amps {
             key-positions = <17 18>;
             bindings = <&kp AMPS>;
+            timeout-ms = <20>;
         };
 
         combo_bktk {
@@ -86,26 +97,31 @@
         combo_lbracket {
             key-positions = <22 23>;
             bindings = <&kp LBKT>;
+            timeout-ms = <20>;
         };
 
         combo_excl {
             key-positions = <23 24>;
             bindings = <&kp EXCL>;
+            timeout-ms = <20>;
         };
 
         combo_pipe {
             key-positions = <27 28>;
             bindings = <&kp PIPE>;
+            timeout-ms = <20>;
         };
 
         combo_rbracket {
             key-positions = <28 29>;
             bindings = <&kp RBKT>;
+            timeout-ms = <20>;
         };
 
         combo_ul {
             key-positions = <29 30>;
             bindings = <&kp UNDER>;
+            timeout-ms = <20>;
         };
 
         // home row mods
@@ -159,6 +175,7 @@
         combo_sqt {
             key-positions = <18 19>;
             bindings = <&kp SQT>;
+            timeout-ms = <20>;
         };
 
         combo_esc {
@@ -176,21 +193,25 @@
         combo_auml {
             bindings = <&kp DE_A_UMLAUT>;
             key-positions = <10 2>;
+            timeout-ms = <30>;
         };
 
         combo_ouml {
             bindings = <&kp DE_O_UMLAUT>;
             key-positions = <8 2>;
+            timeout-ms = <30>;
         };
 
         combo_uuml {
             bindings = <&kp DE_U_UMLAUT>;
             key-positions = <2 6>;
+            timeout-ms = <30>;
         };
 
         combo_szlig {
             bindings = <&kp DE_SZ>;
             key-positions = <11 20>;
+            timeout-ms = <30>;
         };
 
         combo_capslock {
@@ -203,7 +224,7 @@
     td_caps: td_caps {
         compatible = "zmk,behavior-tap-dance";
         #binding-cells = <0>;
-        tapping-term-ms = <250>;
+        tapping-term-ms = <150>;
         bindings = <&kp Z>, <&caps_word>;
     };
 
