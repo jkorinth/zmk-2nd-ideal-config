@@ -250,6 +250,15 @@
         flavor = "tap-preferred";
     };
 
+    ht_boot: ht_boot {
+        compatible = "zmk,behavior-hold-tap";
+        bindings = <&bootloader>, <&sled>;
+
+        #binding-cells = <2>;
+        tapping-term-ms = <1000>;
+        flavor = "hold-preferred";
+    };
+
     td_flayer: td_flayer {
         compatible = "zmk,behavior-tap-dance";
         #binding-cells = <0>;
@@ -289,7 +298,7 @@
             bindings = <
 &mt N1 Q  &mt N2 W        &mt N3 E   &mt N4 R  &mt N5 T                                      &mt N6 Y    &mt N7 U  &mt N8 I   &mt N9 O    &mt N0 P
 &kp A     &kp S           &kp D      &kp F     &kp G                                         &kp H       &kp J     &kp K      &kp L       &kp SEMI
-&td_caps  &kp X           &kp C      &kp V     &kp B     &sled SL_TURN_ON                  &sled SL_TURN_OFF    &kp N       &kp M     &kp COMMA  &kp DOT     &kp FSLH
+&td_caps  &kp X           &kp C      &kp V     &kp B     &ht_boot SL_TURN_ON 0             &ht_boot SL_TURN_OFF 0    &kp N       &kp M     &kp COMMA  &kp DOT     &kp FSLH
 
                                                &mo 1     &kp SPACE                &kp ENTER  &td_flayer
           &kp UP                                                                                                              &kp UP
