@@ -149,6 +149,7 @@
         combo_lgui {
             key-positions = <20 23>;
             bindings = <&ht_sticky LGUI LGUI>;
+            timeout-ms = <30>;
         };
 
         combo_rgui {
@@ -219,12 +220,24 @@
             key-positions = <10 11 12 13>;
             timeout-ms = <30>;
         };
+
+        combo_lbootloader {
+            bindings = <&bootloader>;
+            key-positions = <0 1 2 3>;
+            timeout-ms = <30>;
+        };
+
+        combo_rbootloader {
+            bindings = <&bootloader>;
+            key-positions = <6 7 8 9>;
+            timeout-ms = <20>;
+        };
     };
 
     td_caps: td_caps {
         compatible = "zmk,behavior-tap-dance";
         #binding-cells = <0>;
-        tapping-term-ms = <150>;
+        tapping-term-ms = <200>;
         bindings = <&kp Z>, <&caps_word>;
     };
 
@@ -234,7 +247,7 @@
 
         #binding-cells = <2>;
         tapping-term-ms = <175>;
-        flavor = "balanced";
+        flavor = "tap-preferred";
     };
 
     td_flayer: td_flayer {
@@ -309,9 +322,9 @@
 &trans      &trans      &trans  &trans  &trans  &rgb_ug RGB_TOG                &rgb_ug RGB_EFF  &trans  &trans  &trans  &trans  &trans
 
                                         &trans  &trans                         &trans           &trans
-            &trans                                                                                                      &trans
-&trans      &bootloader &trans                                                                                  &trans  &bootloader  &trans
-            &trans                                                                                                      &trans
+            &trans                                                                                                      &kp N1
+&trans      &bootloader &trans                                                                                  &kp N2  &kp N3       &kp N4
+            &trans                                                                                                      &kp N5
             >;
 
             //sensor-bindings = <&rgb_hue &rgb_sat>;
