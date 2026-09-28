@@ -108,6 +108,7 @@ tasks:
     internal: true
     vars:
       SHIELD_ARGS: '{{if ne .SIDE "reset"}}-DSHIELD=2nd_ideal_{{.SIDE}}{{else}}{{.RESET_SHIELD}}{{end}}'
+      PCBREV_ARGS: '{{if eq .SIDE "left"}}-DDTS_EXTRA_CPPFLAGS=-DPCBREV=2{{else if eq .SIDE "right"}}-DDTS_EXTRA_CPPFLAGS=-DPCBREV=3{{end}}'
     sources:
       - 'zmk-keyboard-2nd-ideal/**/*'
       - 'zmk-2nd-ideal-status-led/**/*'
@@ -118,8 +119,8 @@ tasks:
     generates:
       - 'build/{{.SIDE}}/zephyr/zmk.uf2'
     cmds:
-      - 'west build -d build/{{.SIDE}} {{.WEST_ARGS}} -- {{.SHIELD_ARGS}} {{.CMAKE_ARGS}}'
-  
+      - 'west build -d build/{{.SIDE}} {{.WEST_ARGS}} -- {{.SHIELD_ARGS}} {{.PCBREV_ARGS}} {{.CMAKE_ARGS}}'
+
   menuconfig:reset:
     cmds:
       - task: menuconfig
@@ -142,8 +143,9 @@ tasks:
     internal: true
     vars:
       SHIELD_ARGS: '{{if ne .SIDE "reset"}}-DSHIELD=2nd_ideal_{{.SIDE}}{{else}}{{.RESET_SHIELD}}{{end}}'
+      PCBREV_ARGS: '{{if eq .SIDE "left"}}-DDTS_EXTRA_CPPFLAGS=-DPCBREV=2{{else if eq .SIDE "right"}}-DDTS_EXTRA_CPPFLAGS=-DPCBREV=3{{end}}'
     cmds:
-      - 'west build -d build/{{.SIDE}} -t menuconfig {{.WEST_ARGS}} -- {{.SHIELD_ARGS}} {{.CMAKE_ARGS}}'
+      - 'west build -d build/{{.SIDE}} -t menuconfig {{.WEST_ARGS}} -- {{.SHIELD_ARGS}} {{.PCBREV_ARGS}} {{.CMAKE_ARGS}}'
 
   clean:all:
     cmds:

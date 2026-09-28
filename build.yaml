@@ -1,20 +1,22 @@
 include:
   - board: xiao_ble
     shield: 2nd_ideal_left
+    cmake-args: -DDTS_EXTRA_CPPFLAGS=-DPCBREV=2
 
   - board: xiao_ble
     shield: 2nd_ideal_left
     snippet: debug zmk-usb-logging
-    cmake-args: -DSNIPPET_ROOT=$GITHUB_WORKSPACE
+    cmake-args: -DSNIPPET_ROOT=$GITHUB_WORKSPACE -DDTS_EXTRA_CPPFLAGS=-DPCBREV=2
     artifact-name: 2nd_ideal_left_debug
 
   - board: xiao_ble
     shield: 2nd_ideal_right
+    cmake-args: -DDTS_EXTRA_CPPFLAGS=-DPCBREV=3
 
   - board: xiao_ble
     shield: 2nd_ideal_right
     snippet: debug zmk-usb-logging
-    cmake-args: -DSNIPPET_ROOT=$GITHUB_WORKSPACE
+    cmake-args: -DSNIPPET_ROOT=$GITHUB_WORKSPACE -DDTS_EXTRA_CPPFLAGS=-DPCBREV=3
     artifact-name: 2nd_ideal_right_debug
 
   - board: xiao_ble
