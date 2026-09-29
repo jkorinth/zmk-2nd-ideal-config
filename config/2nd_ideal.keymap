@@ -375,9 +375,9 @@
 
         bl_select_layer {
             bindings = <
-&bl_select BL_LED_L_TOP1  &bl_select BL_LED_L_TOP2  &bl_select BL_LED_L_TOP3  &trans  &trans                                                          &bl_select BL_LED_R_TOP1  &bl_select BL_LED_R_TOP2  &bl_select BL_LED_R_TOP3  &trans  &trans
-&trans                     &trans                     &trans                     &trans  &trans                                                          &trans                     &trans                     &trans                     &trans  &trans
-&bl_select BL_LED_L_BOT1  &bl_select BL_LED_L_BOT2  &bl_select BL_LED_L_BOT3  &trans  &trans  &trans                                &trans                &bl_select BL_LED_R_BOT1  &bl_select BL_LED_R_BOT2  &bl_select BL_LED_R_BOT3  &trans  &trans
+&trans  &bl_select BL_LED_L_TOP1  &bl_select BL_LED_L_TOP2  &bl_select BL_LED_L_TOP3  &trans                                                          &trans  &bl_select BL_LED_R_TOP3  &bl_select BL_LED_R_TOP2  &bl_select BL_LED_R_TOP1  &trans
+&to 0   &to 0                      &to 0                      &to 0                      &to 0                                                          &to 0   &to 0                      &to 0                      &to 0                      &to 0
+&trans  &bl_select BL_LED_L_BOT1  &bl_select BL_LED_L_BOT2  &bl_select BL_LED_L_BOT3  &trans  &trans                                &trans                &trans  &bl_select BL_LED_R_BOT3  &bl_select BL_LED_R_BOT2  &bl_select BL_LED_R_BOT1  &trans
 
                                                                           &trans  &to 0                                &trans  &trans
           &trans                                                                                                                                     &trans
