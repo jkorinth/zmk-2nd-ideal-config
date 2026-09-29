@@ -6,6 +6,7 @@
 #include <dt-bindings/zmk/pointing.h>
 #include <dt-bindings/zmk/rgb.h>
 #include <dt-bindings/status_led.h>
+#include <dt-bindings/bl_ids.h>
 #include "keys_de.h"
 
 / {
@@ -183,6 +184,14 @@
             bindings = <&kp ESC>;
             key-positions = <11 12 13>;
             timeout-ms = <30>;
+            layers = <0 1 2 3>;
+        };
+
+        combo_esc_abort {
+            bindings = <&bl_commit BL_DISCARD>;
+            key-positions = <11 12 13>;
+            timeout-ms = <30>;
+            layers = <4>;
         };
 
         combo_tab {
@@ -289,6 +298,29 @@
             compatible = "zmk,behavior-status-led";
             #binding-cells = <1>;
         };
+
+        bl_select: bl_select {
+            compatible = "zmk,behavior-bl-select";
+            #binding-cells = <1>;
+        };
+
+        bl_adjust: bl_adjust {
+            compatible = "zmk,behavior-bl-adjust";
+            #binding-cells = <2>;
+        };
+
+        bl_commit: bl_commit {
+            compatible = "zmk,behavior-bl-commit";
+            #binding-cells = <1>;
+        };
+
+        bl_adj_bright: bl_adj_bright {
+            compatible = "zmk,behavior-sensor-rotate";
+            #sensor-binding-cells = <0>;
+            bindings = <&bl_adjust BL_BRIGHT BL_STEP_DOWN>, <&bl_adjust BL_BRIGHT BL_STEP_UP>;
+
+            tap-ms = <25>;
+        };
     };
 
     keymap {
@@ -328,7 +360,7 @@
             bindings = <
 &mt F11 F1  &mt F12 F2  &kp F3  &kp F4  &kp F5                                                  &kp F6  &kp F7  &kp F8  &kp F9  &kp F10
 &trans      &trans      &trans  &trans  &trans                                                  &trans  &trans  &trans  &trans  &trans
-&trans      &trans      &trans  &trans  &trans  &rgb_ug RGB_TOG                &rgb_ug RGB_EFF  &trans  &trans  &trans  &trans  &trans
+&trans      &trans      &trans  &trans  &trans  &to 3                          &rgb_ug RGB_EFF  &trans  &trans  &trans  &trans  &trans
 
                                         &trans  &trans                         &trans           &trans
             &trans                                                                                                      &kp N1
@@ -339,6 +371,34 @@
             //sensor-bindings = <&rgb_hue &rgb_sat>;
 
             sensor-bindings = <&inc_dec_kp N9 N0>, <&inc_dec_kp X Y>;
+        };
+
+        bl_select_layer {
+            bindings = <
+&bl_select BL_LED_L_TOP1  &bl_select BL_LED_L_TOP2  &bl_select BL_LED_L_TOP3  &trans  &trans                                                          &bl_select BL_LED_R_TOP1  &bl_select BL_LED_R_TOP2  &bl_select BL_LED_R_TOP3  &trans  &trans
+&trans                     &trans                     &trans                     &trans  &trans                                                          &trans                     &trans                     &trans                     &trans  &trans
+&bl_select BL_LED_L_BOT1  &bl_select BL_LED_L_BOT2  &bl_select BL_LED_L_BOT3  &trans  &trans  &trans                                &trans                &bl_select BL_LED_R_BOT1  &bl_select BL_LED_R_BOT2  &bl_select BL_LED_R_BOT3  &trans  &trans
+
+                                                                          &trans  &to 0                                &trans  &trans
+          &trans                                                                                                                                     &trans
+&trans    &none   &trans                                                                                                                  &trans     &none       &trans
+          &trans                                                                                                                                     &trans
+            >;
+        };
+
+        bl_adjust_layer {
+            bindings = <
+&trans  &trans  &trans  &trans  &trans                                                          &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans                                                          &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans                                &trans             &trans  &trans  &trans  &trans  &trans
+
+                                        &trans  &bl_commit BL_DISCARD                &bl_commit BL_COMMIT  &trans
+          &bl_adjust BL_SAT BL_STEP_UP                                                                                                       &bl_adjust BL_SAT BL_STEP_UP
+&bl_adjust BL_HUE BL_STEP_DOWN  &none  &bl_adjust BL_HUE BL_STEP_UP                                                          &bl_adjust BL_HUE BL_STEP_DOWN  &none  &bl_adjust BL_HUE BL_STEP_UP
+          &bl_adjust BL_SAT BL_STEP_DOWN                                                                                                     &bl_adjust BL_SAT BL_STEP_DOWN
+            >;
+
+            sensor-bindings = <&bl_adj_bright &bl_adj_bright>;
         };
     };
 };
